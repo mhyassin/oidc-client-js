@@ -13,6 +13,9 @@ export class IFrameWindow {
             this._reject = reject;
         });
 
+        this.clientOriginUri = params.clientOriginUri;
+        this.parentOriginUri = params.parentOriginUri;
+
         this._boundMessageEvent = this._message.bind(this);
         window.addEventListener("message", this._boundMessageEvent, false);
 
@@ -100,16 +103,18 @@ export class IFrameWindow {
     }
 
     get _origin() {
-        return location.protocol + "//" + location.host;
+        return this.clientOriginUri || location.protocol + "//" + location.host;
     }
 
     static notifyParent(url) {
         Log.debug("IFrameWindow.notifyParent");
-        if (window.frameElement) {
+
+        let targetOrigin = this.parentOriginUri;
+        if (window.frameElement || targetOrigin) {
             url = url || window.location.href;
             if (url) {
                 Log.debug("IFrameWindow.notifyParent: posting url message to parent");
-                window.parent.postMessage(url, location.protocol + "//" + location.host);
+                window.parent.postMessage(url, targetOrigin || location.protocol + "//" + location.host);
             }
         }
     }
