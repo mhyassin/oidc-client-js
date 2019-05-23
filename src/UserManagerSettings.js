@@ -21,7 +21,6 @@ export class UserManagerSettings extends OidcClientSettings {
         popupWindowTarget,
         silent_redirect_uri,
         client_origin_uri,
-        parent_origin_uri,
         silentRequestTimeout,
         automaticSilentRenew = false,
         includeIdTokenInSilentRenew = true,
@@ -45,7 +44,6 @@ export class UserManagerSettings extends OidcClientSettings {
 
         this._silent_redirect_uri = silent_redirect_uri;
         this._client_origin_uri = client_origin_uri;
-        this._parent_origin_uri = parent_origin_uri;
         this._silentRequestTimeout = silentRequestTimeout;
         this._automaticSilentRenew = automaticSilentRenew;
         this._includeIdTokenInSilentRenew = includeIdTokenInSilentRenew;
@@ -90,9 +88,6 @@ export class UserManagerSettings extends OidcClientSettings {
     }
     get client_origin_uri() {
         return this._client_origin_uri;
-    }
-    get parent_origin_uri() {
-        return this._parent_origin_uri;
     }
     get silentRequestTimeout() {
         return this._silentRequestTimeout;
