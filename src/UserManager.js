@@ -257,8 +257,8 @@ export class UserManager extends OidcClient {
         });
     }
 
-    signinSilentCallback(url) {
-        return this._signinCallback(url, this._iframeNavigator).then(user => {
+    signinSilentCallback(url, targetOrigin) {
+        return this._iframeNavigator.callback(url, targetOrigin).then(user => {
             if (user) {
                 if (user.profile && user.profile.sub) {
                     Log.info("UserManager.signinSilentCallback: successful, signed in sub: ", user.profile.sub);

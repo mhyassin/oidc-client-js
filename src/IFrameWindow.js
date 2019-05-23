@@ -14,7 +14,6 @@ export class IFrameWindow {
         });
 
         this.clientOriginUri = params.clientOriginUri;
-        this.parentOriginUri = params.parentOriginUri;
 
         this._boundMessageEvent = this._message.bind(this);
         window.addEventListener("message", this._boundMessageEvent, false);
@@ -106,10 +105,9 @@ export class IFrameWindow {
         return this.clientOriginUri || location.protocol + "//" + location.host;
     }
 
-    static notifyParent(url) {
+    static notifyParent(url, targetOrigin) {
         Log.debug("IFrameWindow.notifyParent");
 
-        let targetOrigin = this.parentOriginUri;
         if (window.frameElement || targetOrigin) {
             url = url || window.location.href;
             if (url) {
